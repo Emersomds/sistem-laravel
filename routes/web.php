@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CursoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Feito no curso!
+Route::get('/index-curso', [CursoController::class, 'index'])->name('curso.index');
+Route::get('/show-curso', [CursoController::class, 'show'])->name('curso.show');
+Route::get('/create-curso', [CursoController::class, 'create'])->name('curso.create');
+Route::post('/store-curso', [CursoController::class, 'store'])->name('curso.store');
+Route::get('/edit-curso', [CursoController::class, 'edit'])->name('curso.edit');
+Route::put('/update-curso', [CursoController::class, 'update'])->name('curso.update');
+Route::delete('/destroy-curso', [CursoController::class, 'destroy'])->name('curso.destroy');
