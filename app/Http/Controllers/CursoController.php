@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Curso;
 use Illuminate\Http\Request;
 
 class CursoController extends Controller
@@ -9,10 +10,11 @@ class CursoController extends Controller
     //Lista
     public function index(){
         
-        //codigo para listar cursos ou objetos!
-
+        //Recuperar os registros do banco de dados!
+        $cursos = curso::orderByDesc('created_at')->paginate(1);
+        //dd($cursos);
         //Carregar a VIEW!
-        return view('curso.index');
+        return view('curso.index', ['cursos'=> $cursos]);
     }
 
     //detalhes
@@ -28,10 +30,15 @@ class CursoController extends Controller
         return view('curso.create');
     }
     //Cadastrar no banco de dados o novo curso
-    public function store(){
-        dd('Cadastrar no banco de dados o novo curso');
-        //não carregar uma VIEW retorna para uma pagina!
+    public function store(Request $request){
+       //não carregar uma VIEW retorna para uma pagina! 
+
         
+        //Cadastea no banco de dados ns tsbrls cursos os valores de todos os dados
+        Curso::create($request->all());
+        
+        // Redirecionar o usuário e enviar mensagen de sucesso
+        return redirect()->route('curso.show')->with('success', 'Curso cadastrado com sucesso!');
     }
 
      //Carregar o formulario editar curso!
