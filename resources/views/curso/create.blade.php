@@ -6,11 +6,8 @@
     <title>Sistema</title>
 </head>
 <body>
-<a href="{{route('curso.index')}}">Listar</a><br>
-    <a href="{{route('curso.show')}}">Visualizar</a><br>
-    <a href="{{route('curso.edit')}}">Editar</a><br>
-    <!-- <a href="{{route('curso.destroy')}}">Apagar</a><br> -->
-
+    <a href="{{route('curso.index')}}">Listar</a><br>
+    
     <H2>Cadastra curso</H2>
 
     

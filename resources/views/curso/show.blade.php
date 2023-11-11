@@ -9,9 +9,8 @@
     <H2>Detalhes dos cursos</H2>
     <!-- Rotas ou menu do sistema-->
     <a href="{{route('curso.index')}}">Listar</a><br>
-    <a href="{{route('curso.create')}}">cadastrar</a><br>
-    <a href="{{route('curso.edit')}}">Editar</a><br>
-    <!-- <a href="{{route('curso.destroy')}}">Apagar</a><br> -->
+    {{-- <a href="{{route('curso.edit')}}">Editar</a><br>
+     <a href="{{route('curso.destroy')}}">Apagar</a><br> --}}
 
     <!-- Retorno da mensagem de cadatrado com sucesso -->
     @if(session('success'))
@@ -19,5 +18,13 @@
             {{ session('success') }}
         </p>
     @endif
+    <br>
+    ID: {{$curso->id}}<br>
+    Nome: {{$curso->name}}<br>
+    Cadastrado: {{ \Carbon\Carbon::parse($curso->created_at)->tz('America/Sao_Paulo')
+    ->format('d/m/y - H:i:s') }}<br>
+    Editado: {{ \Carbon\Carbon::parse($curso->updated_at)->tz('America/Sao_Paulo')
+    ->format('d/m/y - H:i:s')}}<br>
+
 </body>
 </html>

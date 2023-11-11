@@ -6,19 +6,22 @@
     <title>Sistema</title>
 </head>
 <body>
-    <a href="{{route('curso.show')}}">Visualizar</a><br>
+
     <a href="{{route('curso.create')}}">cadastrar</a><br>
-    <a href="{{route('curso.edit')}}">Editar</a><br>
-    <!-- <a href="{{route('curso.destroy')}}">Apagar</a><br> -->
+   
     <H2>Listar os cursos</H2>
    
 
     @forelse ($cursos as $curso)
-        {{ $curso->name }}<br>
-        {{ \Carbon\Carbon::parse($curso->created_at)->tz('America/Sao_Paulo')
+        ID: {{ $curso->id }}<br>
+        Nome: {{ $curso->name }}<br>
+        Cadastrado: {{ \Carbon\Carbon::parse($curso->created_at)->tz('America/Sao_Paulo')
         ->format('d/m/y - H:i:s') }}<br>
-        {{ \Carbon\Carbon::parse($curso->updated_at)->tz('America/Sao_Paulo')
-        ->format('d/m/y - H:i:s')}}<br><hr>
+        Editado: {{ \Carbon\Carbon::parse($curso->updated_at)->tz('America/Sao_Paulo')
+        ->format('d/m/y - H:i:s')}}<br>
+        <a href="{{ route('curso.show', ['curso'=> $curso->id])}}">Visualizar</a><br>
+        <a href="{{ route('curso.edit', ['curso'=> $curso->id])}}">Editar</a><br>
+        <hr>
     @empty
         <p style="color: #f00;">Nenhum curso encontrado</p>
     @endforelse

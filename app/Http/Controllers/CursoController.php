@@ -11,17 +11,20 @@ class CursoController extends Controller
     public function index(){
         
         //Recuperar os registros do banco de dados!
-        $cursos = curso::orderByDesc('created_at')->paginate(1);
+        $cursos = curso::orderByDesc('created_at')->paginate(8);
         //dd($cursos);
         //Carregar a VIEW!
         return view('curso.index', ['cursos'=> $cursos]);
     }
 
     //detalhes
-    public function show(){
+    public function show(Request $request){
+       
+        //Recuperar as informaçõe do banco de dados e envia para a view show
+        $curso= Curso::where('id', $request->curso)->first();
 
         //Carregar a VIEW!
-        return view('curso.show');
+        return view('curso.show',['curso' => $curso]);
     }
     //Carregar o formulario cadastrar novo curso!
     public function create(){
@@ -42,14 +45,18 @@ class CursoController extends Controller
     }
 
      //Carregar o formulario editar curso!
-     public function edit(){
+     public function edit(Request $request, Curso $curso){
 
+        //$curso = Curso::where('id', $request->curso)->first();
+        //dd($curso);
         //Carregar a VIEW!
-        return view('curso.edit');
+        return view('curso.edit', ['curso' => $curso]);
     }
     //Edita no banco de dados um curso existente
-    public function update(){
-        dd('Edita no banco de dados um curso existente');
+    public function update(Request $request, Curso $curso){
+        
+        $curso->update(['name' => $request->name]);
+        return redirect()->route('curso.show', ['curso' => $request->curso])->with('success', 'Curso editado com sucesso!');
         //não carregar uma VIEW retorna para uma pagina!
         
     }
