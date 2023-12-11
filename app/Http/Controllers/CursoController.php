@@ -35,13 +35,14 @@ class CursoController extends Controller
     //Cadastrar no banco de dados o novo curso
     public function store(Request $request){
        //não carregar uma VIEW retorna para uma pagina! 
-
+        //dd($request);
         
         //Cadastea no banco de dados ns tsbrls cursos os valores de todos os dados
-        Curso::create($request->all());
+        $curso = Curso::create($request->all());
         
         // Redirecionar o usuário e enviar mensagen de sucesso
-        return redirect()->route('curso.show')->with('success', 'Curso cadastrado com sucesso!');
+        return redirect()->route('curso.show', ['curso'=> $curso->id])->with('success','Curso cadastrado com sucesso!');
+        //return redirect()->route('curso.show')->with('success', 'Curso editado com sucesso!');
     }
 
      //Carregar o formulario editar curso!
@@ -62,9 +63,10 @@ class CursoController extends Controller
     }
 
     //Exclui o curso no banco de dados
-    public function destroy(){
-        dd('Exclui no banco de dados um curso existente');
-        //não carregar uma VIEW retorna para uma pagina!
-        
+    public function destroy(Curso $curso){
+        //Exclui o registro no banco de dados!
+        $curso->delete();
+        //Redirecionar o usuario para pagina de cursos e menssagen de sucesso!
+        return redirect()->route('curso.index')->with('success', 'Curso excluido com sucesso!');
     }
 }

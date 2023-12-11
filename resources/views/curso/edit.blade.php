@@ -8,9 +8,17 @@
 <body>
     <H2>Editar curso</H2>
 
-    <a href="{{route('curso.index')}}">Listar</a><br>
-    <a href="{{route('curso.show', ['curso' => $curso->id])}}">Visualizar</a><br>
-     {{--<a href="{{route('curso.destroy')}}">Apagar</a><br> --}}
+    <a href="{{route('curso.index')}}">
+        <button type="button">Listar</button>
+    </a><br>
+    <a href="{{route('curso.show', ['curso' => $curso->id])}}">
+        <button type="button">Visualizar</button>
+    </a><br>
+    <form method="POST" action="{{route('curso.destroy', ['curso'=> $curso->id])}}">
+        @csrf 
+        @method('delete')
+        <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+    </form><br>
 
     <form action="{{ route('curso.update', ['curso' => $curso->id]) }}" method="POST">
         @csrf 

@@ -8,9 +8,17 @@
 <body>
     <H2>Detalhes dos cursos</H2>
     <!-- Rotas ou menu do sistema-->
-    <a href="{{route('curso.index')}}">Listar</a><br>
-    {{-- <a href="{{route('curso.edit')}}">Editar</a><br>
-     <a href="{{route('curso.destroy')}}">Apagar</a><br> --}}
+    <a href="{{route('curso.index')}}">
+        <button type="button">Listar</button>
+    </a><br>
+    <a href="{{ route('curso.edit', ['curso'=> $curso->id])}}">
+        <button type="button">Editar</button>
+    </a><br>
+    <form method="POST" action="{{route('curso.destroy', ['curso'=> $curso->id])}}">
+        @csrf 
+        @method('delete')
+        <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+    </form>
 
     <!-- Retorno da mensagem de cadatrado com sucesso -->
     @if(session('success'))

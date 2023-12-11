@@ -7,7 +7,15 @@
 </head>
 <body>
 
-    <a href="{{route('curso.create')}}">cadastrar</a><br>
+    <a href="{{route('curso.create')}}">
+        <button type="button"><b>Cadastrar</b></button>
+    </a><br>
+    @if(session('success'))
+        <p style="color: #082;">
+            {{ session('success') }}
+        </p>
+    @endif
+    <br>
    
     <H2>Listar os cursos</H2>
    
@@ -19,8 +27,19 @@
         ->format('d/m/y - H:i:s') }}<br>
         Editado: {{ \Carbon\Carbon::parse($curso->updated_at)->tz('America/Sao_Paulo')
         ->format('d/m/y - H:i:s')}}<br>
-        <a href="{{ route('curso.show', ['curso'=> $curso->id])}}">Visualizar</a><br>
-        <a href="{{ route('curso.edit', ['curso'=> $curso->id])}}">Editar</a><br>
+        <div class="button">
+            <a href="{{ route('curso.show', ['curso'=> $curso->id])}}">
+                <button type="button">Visualizar</button>
+            </a><br>
+            <a href="{{ route('curso.edit', ['curso'=> $curso->id])}}">
+                <button type="button">Editar</button>
+            </a><br>
+            <form method="POST" action="{{route('curso.destroy', ['curso'=> $curso->id])}}">
+                @csrf 
+                @method('delete')
+                <button type="submit" onclick="return confirm('Tem certeza que deseja apagar este registro?')">Apagar</button>
+            </form>
+        </div>
         <hr>
     @empty
         <p style="color: #f00;">Nenhum curso encontrado</p>

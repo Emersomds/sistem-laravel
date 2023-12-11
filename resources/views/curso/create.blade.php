@@ -6,7 +6,9 @@
     <title>Sistema</title>
 </head>
 <body>
-    <a href="{{route('curso.index')}}">Listar</a><br>
+    <a href="{{route('curso.index')}}">
+        <button type="button"><b>Listar</b></button>
+    </a><br>
     
     <H2>Cadastra curso</H2>
 
